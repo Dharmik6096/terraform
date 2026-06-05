@@ -1,0 +1,7 @@
+terrakey-ec2.pub
+terrakey-ec2
+terraform.tfstate
+.terraform.lock.hcl
+.terraform/providers/registry.terraform.io/hashicorp/aws/6.47.0/windows_386/terraform-provider-aws_v6.47.0_x5.exe
+terraform.tfstate.backup
+.terraform/environment
