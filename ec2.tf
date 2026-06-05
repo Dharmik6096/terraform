@@ -1,32 +1,25 @@
 # Key Pair
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
+  key_name   = "${var.env}-deployer-key"
   public_key = file("terrakey-ec2.pub")
+
+  tags = {
+    Environment = var.env
+  }
 }
 
 # Default VPC
 
-resource "aws_default_vpc" "default" {
-
-}
+resource "aws_default_vpc" "default" {}
 
 # Security Group
-
 resource "aws_security_group" "my_security_group" {
-  name        = "automate-sg"
+  name        = "${var.env}-automate-sg"
   description = "Allow SSH and HTTP"
   vpc_id      = aws_default_vpc.default.id ## interpolation (Most omporatnt ask in interview )
   
   # Inbound Rules
-
-  ingress {
-    description = "SSH Open"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   ingress {
     description = "SSH Open"
@@ -55,7 +48,8 @@ resource "aws_security_group" "my_security_group" {
   }
 
   tags = {
-    Name = "automate-sg"
+    Name        = "${var.env}-automate-sg"
+    Environment = var.env
   }
 }
 
@@ -87,7 +81,8 @@ resource "aws_instance" "my_instance" {
   }
 
   tags = {
-    Name = each.key
+    Name        = "${var.env}-${each.key}"
+    Environment = var.env
   }
 }
 
