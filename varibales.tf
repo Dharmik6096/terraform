@@ -16,5 +16,4 @@ variable "ec2_root_storage_size" {
 variable "env" {
   default = "dev"
   type    = string
-  dnk
 }
